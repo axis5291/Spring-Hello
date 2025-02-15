@@ -1,0 +1,41 @@
+Spring Boot에서 resources/templates 폴더 안에 HTML 파일을 만들면 
+Thymeleaf 템플릿 엔진을 통해 동적으로 처리
+
+Thymeleaf는 컨트롤러에서 전달한 데이터를 ${변수명} 같은 문법으로 HTML에서 사용할 수 있게 해 줘.
+===============================================================
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Boot + Thymeleaf</title>
+</head>
+<body>
+    <h1>Hello, <span th:text="${name}">이름</span>!</h1>
+</body>
+</html>
+
+===============================================================
+
+이 코드에서 th:text="${name}" 부분이 Thymeleaf 문법으로, 컨트롤러에서 전달한 데이터를 동적으로 표시할 수 있어
+===============================================================
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class MyController {
+    @GetMapping("/")
+    public String index(Model model) {
+        model.addAttribute("name", "종호");
+        return "index"; // templates/index.html을 반환
+    }
+}
+
+===============================================================
+
+model.addAttribute("name", "종호"); → name이라는 변수를 Thymeleaf로 전달
+return "index"; → resources/templates/index.html을 찾아서 렌더링
+
+
+즉, templates에 HTML을 만들고 Thymeleaf 문법을 사용하면 동적으로 동작

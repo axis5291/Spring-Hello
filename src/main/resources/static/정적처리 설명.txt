@@ -1,0 +1,7 @@
+resources/static 폴더에 HTML을 넣으면 정적 파일로 취급돼서, Java 코드 없이 그대로 브라우저에 표시돼.
+
+1.resources->static폴더
+에서 index.html을 만들면 서버를 실행후 http://localhost:8080/ 접속할 때 보여지는 첫화면을 설정할 수 있다.
+
+2.resources->static폴더 설명
+  여기에는 정적파일을 수행하는곳으로서 예로 이 하위에 hello-static.html을 만들고  http://localhost:8080/hello-static.html 로 접속해서 보여준다.

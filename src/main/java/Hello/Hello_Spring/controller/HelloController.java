@@ -16,19 +16,19 @@ public class HelloController {
         return "hello";   // resources/templates/hello.html를 가리킨다.
     }
 
-    @GetMapping("/hello-mvc")   //http://localhost:8080/hello-mvc?name=erlia 로 접속하면 name값이 출력된다.
+    @GetMapping("/hello-mvc")   // http://localhost:8080/hello-mvc?name=erlia 로 접속하면 name값이 출력된다.
     public String helloMvc(@RequestParam("name") String name, Model model) {
         model.addAttribute("name", name);
         return "hello-template";  
     }
 
-    @GetMapping("/hello-string")  //http://localhost:8080/hello-string?name=erlia 로 접속하면 hello erlia가 출력된다.  소스보기를 하면 바로위의 것과 차이가 난다. html이 보이지 않는다. 
+    @GetMapping("/hello-string")  // http://localhost:8080/hello-string?name=erlia 로 접속하면 hello erlia가 출력된다.  소스보기를 하면 바로위의 것과 차이가 난다. html이 보이지 않는다. 
     @ResponseBody                 //*1.API 방식(제이슨 반환)으로 사용할 때 사용, @ResponseBody를 보고 httpMessageConvert가  문자를 반환하는 방식
     public String helloString(@RequestParam("name") String name){
         return "hello " + name;  //
     }
 
-    @GetMapping("/hello-api")    //http://localhost:8080/hello-api?name=erlia 로 접속
+    @GetMapping("/hello-api")    // http://localhost:8080/hello-api?name=erlia 로 접속
     @ResponseBody               //*2.API 방식(제이슨 반환)으로 사용할 때 사용, @ResponseBody를 보고 httpMessageConvert가 객체를 제이슨 형태로 변환하여 반환하는 방식
     public Hello helloApi(@RequestParam("name") String name){ 
         Hello hello =new Hello();
