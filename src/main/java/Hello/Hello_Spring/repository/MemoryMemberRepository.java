@@ -10,8 +10,8 @@ import Hello.Hello_Spring.domain.Member;
 //이것이 제대로 동작되는지 확인하기 위헤 테스트케이스를 작성한다.  ->JUnit이라는 프레임워크로 테스트를 실행
 public class MemoryMemberRepository implements  MemberRepository{
 
-    private static Map<Long, Member> store=new HashMap<>();    // 회원 정보를 저장하는 Map (Key: 회원 ID, Value: Member 객체)
-    private static long sequence=0L;                          // 회원 ID를 자동 증가시키기 위한 변수
+    private static Map<Long, Member> store=new HashMap<>();// 회원 정보를 저장하는 Map (Key: 회원 ID, Value: Member 객체)
+    private static long sequence=0L;                       // 회원 ID를 자동 증가시키기 위한 변수
 
     @Override
     public Member save(Member member) {     //이미 생성된 객체를 map에 저장한 후 객체 반환메서드,  
@@ -22,7 +22,8 @@ public class MemoryMemberRepository implements  MemberRepository{
 
     @Override
     public Optional<Member> findById(Long id) {
-       return Optional.ofNullable(store.get(id));  //map형태인 store에서 get(키값)으로 id(long)을 넣으면 값으로 member객체가 반횐된다.
+       return Optional.ofNullable(store.get(id));  
+       //map형태인 store에서 get(키값)으로 id(long)을 넣으면 값으로 member객체가 반횐된다.
        //Optional을 사용하면 null도 감싸서 Optional 반환이 가능하다.
     }
 

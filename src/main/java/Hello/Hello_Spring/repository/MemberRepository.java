@@ -10,5 +10,4 @@ public interface MemberRepository {
     Optional<Member> findById(Long id);   //Null값이 반환된다면 optional객체로 감씨서 반환, 예외처리 불필요
     Optional<Member> findByName(String name);
     List<Member> findAll();
-    
 }
