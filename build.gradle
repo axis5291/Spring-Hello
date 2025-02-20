@@ -19,13 +19,20 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     
-    // JUnit 5 (Jupiter) 테스트 관련 의존성 추가
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1' // JUnit 5 API
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1' // JUnit 5 실행 엔진
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine' // JUnit 4 충돌 방지
+    }
 }
 
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+test {
+    testLogging {
+        events "passed", "failed", "skipped", "standard_out", "standard_error"
+        showStandardStreams = true  // ✅ System.out.println() 출력 강제 활성화
+    }
 }

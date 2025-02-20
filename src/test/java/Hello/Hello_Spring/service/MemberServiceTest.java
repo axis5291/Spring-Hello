@@ -1,7 +1,7 @@
 package Hello.Hello_Spring.service;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Test; 
 
 import Hello.Hello_Spring.domain.Member;
 
@@ -25,10 +25,10 @@ public class MemberServiceTest {
         }
     }
     @Test
-    void testFindMembers() {
-
+    void testFindMembers() throws InterruptedException {
+        System.out.println("테스트 실행됨!!!");
+      
     }
-
     @Test
     void testFindOne() {
 
