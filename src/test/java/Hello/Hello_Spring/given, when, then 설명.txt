@@ -1,0 +1,68 @@
+📌 Given-When-Then 패턴의 구조
+
+Given(준비) → 테스트를 실행하기 전 필요한 데이터를 세팅하는 단계
+When(실행) → 테스트 대상인 메서드를 실행하는 단계
+Then(검증) → 실행 결과가 예상한 값과 일치하는지 검증하는 단계
+
+🔹 코드 예제로 이해하기
+🎯 예제: testJoin() (회원가입 테스트)
+
+==============================================================================
+@Test
+void testJoin() {
+    // Given (준비) - 테스트에 필요한 객체 생성 및 값 설정
+    Member member = new Member();
+    member.setName("마종호");
+
+    // When (실행) - 테스트 대상 메서드 호출
+    Long saveId = memberService.join(member);  // 회원 가입 실행
+
+    // Then (검증) - 실행 결과가 예상한 값과 같은지 확인
+    Member findMember = memberService.findOne(saveId).get();  // 가입한 회원 찾기
+    Assertions.assertThat(member.getName()).isEqualTo(findMember.getName()); // 검증
+
+    // 추가적인 출력 (테스트 결과 확인용)
+    if (member.getName().equals(findMember.getName())) {
+        System.out.println("같은 회원으로 판명되었습니다.");
+    }
+}
+==============================================================================
+✔ Given: Member 객체를 생성하고 name을 설정
+✔ When: memberService.join(member)를 실행하여 회원을 가입
+✔ Then: 가입된 회원을 findOne()으로 찾고, Assertions.assertThat()을 사용해 값이 같은지 검증
+
+🎯 예제: 중복_회원_예외() (중복 회원 가입 예외 테스트)
+
+==============================================================================
+@Test
+void 중복_회원_예외() {
+    // Given (준비) - 중복된 이름의 회원 두 명 생성
+    Member member1 = new Member();
+    member1.setName("마종호");
+
+    Member member2 = new Member();
+    member2.setName("마종호");
+
+    // When (실행) - 첫 번째 회원 가입 후, 두 번째 회원 가입 시 예외 발생 테스트
+    memberService.join(member1);
+    IllegalStateException e = org.junit.jupiter.api.Assertions.assertThrows(
+        IllegalStateException.class, 
+        () -> memberService.join(member2) // 두 번째 회원 가입 시 예외 발생 예상
+    );
+
+    // Then (검증) - 예외 메시지가 예상한 메시지와 같은지 확인
+    Assertions.assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
+
+    System.out.println("중복_회원_예외 메서드 실행결과: 예외가 발생했습니다.");
+}
+
+==============================================================================
+✔ Given: 같은 이름을 가진 두 개의 Member 객체 생성
+✔ When: memberService.join(member1)을 실행한 후 memberService.join(member2)를 실행하면서 예외 발생 테스트
+✔ Then: 예외 메시지가 "이미 존재하는 회원입니다."와 일치하는지 검증
+
+📝 Given-When-Then을 쓰는 이유
+✅ 가독성이 좋아짐 → 코드만 봐도 "어떤 테스트인지" 쉽게 이해 가능
+✅ 유지보수가 쉬움 → 명확한 구조 덕분에 오류 발생 시 빠르게 원인 파악 가능
+✅ BDD 스타일로 테스트를 명확하게 표현 → 협업 시 가독성이 향상됨
+

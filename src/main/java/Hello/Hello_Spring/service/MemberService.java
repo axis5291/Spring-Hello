@@ -5,10 +5,16 @@ import java.util.Optional;
 
 import Hello.Hello_Spring.domain.Member;
 import Hello.Hello_Spring.repository.MemberRepository;
-import Hello.Hello_Spring.repository.MemoryMemberRepository;
 
 public class MemberService {
-    final private MemberRepository memberRepository =new MemoryMemberRepository();
+    final private MemberRepository memberRepository;
+
+    public MemberService(MemberRepository memberRepository){  //외부에서 MemberServeice객체를 생성할 때 MemberRepository를 넣어준다.
+        this.memberRepository=memberRepository;
+    }
+// 생성자 매개변수(MemberRepository memberRepository)와 같이 인터페이스로 지정한 이유
+// MemberService를 생성할 때 매개변수로 MemoryyMemberRepository 대신 JpaMemberRepository로 변경하면 MemberService의 코드를 변경하지 않아도 된다.
+//이렇게 하면 손쉽게 레포지토리를 타입별로 바꿀수 있다.  MemberServiceTest에서 @beforeEach()부분 볼것..
 
     public Long join(Member member){//회원가입 메서드
         validateDuplicateMember(member);  //중복회원 검증

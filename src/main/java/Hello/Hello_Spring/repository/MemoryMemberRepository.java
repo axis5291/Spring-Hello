@@ -39,7 +39,7 @@ public class MemoryMemberRepository implements  MemberRepository{
     }
 
     public void clearStore() {
-        store.clear();
+        store.clear();  //clear()는 Map의 모든 데이터를 한 번에 삭제하는 메서드
     }
     
 
