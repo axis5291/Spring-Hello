@@ -3,12 +3,21 @@ package Hello.Hello_Spring.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import Hello.Hello_Spring.domain.Member;
 import Hello.Hello_Spring.repository.MemberRepository;
-
+// MemberService가 하는 역할
+// 📌 회원가입 (join) ➡ 중복 회원을 검증한 후, memberRepository.save(member);를 통해 저장
+// 📌 전체 회원 조회 (findMembers)  ➡ 저장된 모든 회원 목록을 반환
+// 📌 특정 회원 조회 (findOne)  ➡ 주어진 memberId로 특정 회원을 찾아 반환
+// 📌 중복 회원 검증 (validateDuplicateMember) ➡ findByName()을 이용해 중복된 회원이 있으면 예외 발생
+@Service
 public class MemberService {
     final private MemberRepository memberRepository;
 
+    @Autowired
     public MemberService(MemberRepository memberRepository){  //외부에서 MemberServeice객체를 생성할 때 MemberRepository를 넣어준다.
         this.memberRepository=memberRepository;
     }
@@ -40,3 +49,5 @@ public class MemberService {
     }
 
 }
+
+

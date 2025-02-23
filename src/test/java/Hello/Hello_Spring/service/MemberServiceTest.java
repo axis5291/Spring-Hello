@@ -14,7 +14,7 @@ public class MemberServiceTest {
 
     @BeforeEach  //각 메서드의 테스트가 실행되기 전에 실행되는 메서드
     public void bdforeEach(){
-        this.memberRepository=new MemoryMemberRepository();  //MemoryMemberRepository를 JpaMemberRepository로 대체할 수 있다.
+        this.memberRepository=new MemoryMemberRepository();  //각 메서드마다 별도의 레포지토리 객체를 만드는 것
         //@BeforeEach를 통해 매 테스트마다 새로운 MemoryMemberRepository 인스턴스를 생성하므로, 각 테스트는 독립적으로 실행되고 데이터가 섞이지 않는다
         this.memberService=new MemberService(memberRepository);
     }

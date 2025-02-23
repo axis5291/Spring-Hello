@@ -5,9 +5,10 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.stereotype.Service;
 
 import Hello.Hello_Spring.domain.Member;
-
+@Service
 public class MemoryMemberRepositoryTest {
     MemoryMemberRepository repository=new MemoryMemberRepository();
    

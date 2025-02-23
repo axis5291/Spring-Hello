@@ -5,9 +5,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.stereotype.Repository;
+
 import Hello.Hello_Spring.domain.Member;
 
 //이것이 제대로 동작되는지 확인하기 위헤 테스트케이스를 작성한다.  ->JUnit이라는 프레임워크로 테스트를 실행
+@Repository  //@Repository :스프링이 해당 클래스를 보고 자동으로 객체를 생성하여 빈으로 등록
 public class MemoryMemberRepository implements  MemberRepository{
 
     private static Map<Long, Member> store=new HashMap<>();// 회원 정보를 저장하는 Map (Key: 회원 ID, Value: Member 객체), 메모리에 저장하는 역할
