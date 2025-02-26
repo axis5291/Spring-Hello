@@ -1,11 +1,10 @@
 스프링 컨테이너가 메모리에 올라오면 스프링 빈 등록 절차
 
-동작흐름이 
-controller -> service -> repository 같은 구조임
+동작흐름이  controller -> service -> repository 같은 구조임
 
 컨트롤러와 서비스 생성자정의에서 @Autowired를 묶어준다.
 
-스프링이 객체를 생성하고 주입하는 객체생성순서
+*스프링이 객체를 생성하고 주입하는 객체생성순서
 1️⃣ MemoryMemberRepository (@Repository) 생성됨
 2️⃣ MemberService (@Service) 생성됨 → MemoryMemberRepository가 주입됨
 3️⃣ MemberController (@Controller) 생성됨 → MemberService가 주입됨
@@ -18,4 +17,21 @@ controller -> service -> repository 같은 구조임
 
 2.작성자가 직접 빈으로 등록하는 방법:SpringConfig클래스를 보자
   여기 예제에서는 컨트롤러를 제외한 메소드를 통해서 서비스와 레포지토리를 빈으로 등록하여 객체들을 연결 사용하는 방법이다.
+
+
+-http://localhost:8080/ 입력  (HomeController->home.html->MemberContorller get동작->members/createMemberForm.html->MemberContorller post 동작)
+1.HomeController에서 home.html로 설정되어 있음
+2.MemberContorller에서 home.html에서 링크사항이 작성되어 있음
   
+
+*DB연결을 위한 설정
+-build.gradle
+ implementation 'org.springframework.boot:spring-boot-starter-data-jpa'  // JPA 사용
+ implementation 'org.springframework.boot:spring-boot-starter-jdbc'      // JDBC 사용
+ runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'                      // MariaDB 드라이버 추가
+
+-application.properties 
+ spring.datasource.url=jdbc:mariadb://localhost:3306/hello_spring ✅ (MariaDB에서 권장)
+ spring.datasource.driver-class-name=org.mariadb.jdbc.Driver ✅
+ spring.datasource.username=root  # DB 사용자명
+ spring.datasource.password=erlia22  # DB 비밀번호

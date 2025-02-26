@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <div class="container">
+        <div>
+            <h1>회원가입</h1>
+            <form action="/members/new" method="post"> 
+                 <!-- <form action="/members/new" method="post">이 @PostMapping("/members/new")가 적용된 컨트롤러 메서드로 요청이 전달 -->
+                <div>
+                    <label for="name">이름</label>
+                    <input type="text" id="name" name="name" placeholder="이름을 입력하세요">
+                <!-- *** name="name"에서 "name"오른쪽 부분이 MemberForm 객체의 필드명 name과 일치해야 함 -->
+                </div>
+              
+                <button type="submit">가입</button>
+            </form>
+        </div> 
+     </div>
+</body>
+</html>

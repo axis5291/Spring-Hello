@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 charset=UTF-8">
+    <title>Hellooooo</title>
+</head>
+<body>
+    가입회원 리스트를 가져오겠습니다.
+   
+        <div>
+            <h1>회원목록</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>이름</th>
+                    </tr>
+                </thead>
+                <tbody>
+<!-- members는 MemberContorller에서 넘겨준 members 리스트 , th:each는 Thymeleaf(타임리프)의 문법, 여기에서는 vue대신 사용-->
+                    <tr th:each="member : ${members}">  
+                        <td th:text="${member.id}">1</td>
+                        <td th:text="${member.name}">홍길동</td>
+                    </tr>
+                </tbody>
+
+
+<!-- ✔ members는 컨트롤러에서 model.addAttribute("members", members);로 전달된 리스트
+✔ th:each="member : ${members}" → members 리스트를 순회하며 각 요소를 member로 사용
+✔ th:text="${member.id}" → 현재 순회 중인 member 객체의 id 값을 출력
+✔ th:text="${member.name}" → 현재 순회 중인 member 객체의 name 값을 출력 -->
+            </table>
+        </div>
+</body>
+</html>
