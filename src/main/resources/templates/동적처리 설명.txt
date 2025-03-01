@@ -1,5 +1,4 @@
-Spring Boot에서 resources/templates 폴더 안에 HTML 파일을 만들면 
-Thymeleaf 템플릿 엔진을 통해 동적으로 처리
+Spring Boot에서 resources/templates 폴더 안에 HTML 파일을 만들면 Thymeleaf 템플릿 엔진을 통해 동적으로 처리
 
 Thymeleaf는 컨트롤러에서 전달한 데이터를 ${변수명} 같은 문법으로 HTML에서 사용할 수 있게 해 줘.
 ===============================================================

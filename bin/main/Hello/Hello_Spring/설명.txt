@@ -39,3 +39,10 @@
  spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
 
  ---------------------------------------------------------------------------------------------------------------------
+
+ JdbcTemplate은 SQL 실행을 간단하게 도와주는 Spring의 도구
+DataSource를 주입받아 JdbcTemplate을 생성
+→ Spring Boot에서는 application.properties에 설정된 DB 정보를 자동으로 DataSource로 등록
+@Autowired 없이 생성자를 통해 DataSource를 주입받음
+→ Spring Boot가 DataSource를 자동으로 제공
+

@@ -15,10 +15,12 @@ import Hello.Hello_Spring.repository.MemberRepository;
 // 📌 중복 회원 검증 (validateDuplicateMember) ➡ findByName()을 이용해 중복된 회원이 있으면 예외 발생
 @Service
 public class MemberService {
-    final private MemberRepository memberRepository;
-
+    final private MemberRepository memberRepository; 
+// final: 해당 변수가 한 번만 초기화될 수 있도록 제한하는 역할 즉, final로 선언된 변수는 값을 한 번 설정한 후 변경할 수 없다
+// memberRepository가 생성된 후 변경되지 않도록 보장하려는 의도로 사용. 
     @Autowired
-    public MemberService(MemberRepository memberRepository){  //외부에서 MemberServeice객체를 생성할 때 MemberRepository를 넣어준다.
+    public MemberService(MemberRepository memberRepository){  
+        //**SpringConfig에서 memberRepository()에서 Bean으로 등록한 memberRepository를 매개변수로 받음
         this.memberRepository=memberRepository;
     }
 // 생성자 매개변수(MemberRepository memberRepository)와 같이 인터페이스로 지정한 이유
