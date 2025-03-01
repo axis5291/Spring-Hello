@@ -1,8 +1,8 @@
 스프링 컨테이너가 메모리에 올라오면 스프링 빈 등록 절차
 
-동작흐름이  controller -> service -> repository 같은 구조임
+**동작흐름이  controller -> service -> repository 같은 구조임
 
-컨트롤러와 서비스 생성자정의에서 @Autowired를 묶어준다.
+컨트롤러와 서비스 생성자 정의에서 @Autowired를 묶어준다.
 
 *스프링이 객체를 생성하고 주입하는 객체생성순서
 1️⃣ MemoryMemberRepository (@Repository) 생성됨
@@ -10,6 +10,7 @@
 3️⃣ MemberController (@Controller) 생성됨 → MemberService가 주입됨
 
 ➡ 이렇게 하면 MemberController에서 MemberService를 사용할 수 있고, MemberService는 MemberRepository를 사용할 수 있음! 🚀
+ ---------------------------------------------------------------------------------------------------------------------
 
 1.컴포넌트 스캔방법(스프링이 컴포넌트를 조회하여 객체(빈)으로 등록하는 방법:@Controller, @Service, @Repository가 다 컴포넌트의 일종이다.
 @Controller, @Service, @Repository → 스프링이 해당 클래스를 보고 객체(빈)를 생성하여 스프링 컨테이너에 등록함
@@ -19,19 +20,22 @@
   여기 예제에서는 컨트롤러를 제외한 메소드를 통해서 서비스와 레포지토리를 빈으로 등록하여 객체들을 연결 사용하는 방법이다.
 
 
--http://localhost:8080/ 입력  (HomeController->home.html->MemberContorller get동작->members/createMemberForm.html->MemberContorller post 동작)
+-http://localhost:8080/ 입력  
+(HomeController->home.html->MemberContorller get동작->members/createMemberForm.html->MemberContorller post 동작)
 1.HomeController에서 home.html로 설정되어 있음
 2.MemberContorller에서 home.html에서 링크사항이 작성되어 있음
   
 
-*DB연결을 위한 설정
+*DB연결을 위한 설정------------------------------------------------------------------------------------------------------
 -build.gradle
- implementation 'org.springframework.boot:spring-boot-starter-data-jpa'  // JPA 사용
- implementation 'org.springframework.boot:spring-boot-starter-jdbc'      // JDBC 사용
- runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'                      // MariaDB 드라이버 추가
+  implementation 'org.springframework.boot:spring-boot-starter-data-jpa'  // JPA 사용
+  implementation 'org.springframework.boot:spring-boot-starter-jdbc'      // JDBC 사용
+  implementation 'org.mariadb.jdbc:mariadb-java-client:3.3.2'             // MariaDB 드라이버 추가
 
 -application.properties 
- spring.datasource.url=jdbc:mariadb://localhost:3306/hello_spring ✅ (MariaDB에서 권장)
- spring.datasource.driver-class-name=org.mariadb.jdbc.Driver ✅
- spring.datasource.username=root  # DB 사용자명
- spring.datasource.password=erlia22  # DB 비밀번호
+ spring.datasource.url=jdbc:mariadb://localhost:3306/SpringHelloDB?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+ spring.datasource.username=root
+ spring.datasource.password=erlia22
+ spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
+
+ ---------------------------------------------------------------------------------------------------------------------

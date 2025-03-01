@@ -39,3 +39,7 @@ test {
         showStandardStreams = true  // ✅ System.out.println() 출력 강제 활성화
     }
 }
+
+dependencies {
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'  // 개발환경에서만 사용
+}
