@@ -1,3 +1,5 @@
+package Hello.Hello_Spring.repository;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,14 +8,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import javax.sql.DataSource;
-
 import org.springframework.jdbc.datasource.DataSourceUtils;
 
 import Hello.Hello_Spring.domain.Member;
-import Hello.Hello_Spring.repository.MemberRepository;
- 
+
 public class JdbcMemberRepository implements MemberRepository {
     private final DataSource dataSource;
     public JdbcMemberRepository(DataSource dataSource) {

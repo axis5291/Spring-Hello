@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Hello.Hello_Spring.repository.MemoryMemberRepositoryTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-02-28T11:06:56.924Z" hostname="majonghoui-MacBookPro.local" time="0.091">
+  <properties/>
+  <testcase name="findAll()" classname="Hello.Hello_Spring.repository.MemoryMemberRepositoryTest" time="0.085"/>
+  <testcase name="findByName()" classname="Hello.Hello_Spring.repository.MemoryMemberRepositoryTest" time="0.002"/>
+  <testcase name="save()" classname="Hello.Hello_Spring.repository.MemoryMemberRepositoryTest" time="0.001"/>
+  <system-out><![CDATA[저장소를 비웠습니다.
+저장소를 비웠습니다.
+저장소를 비웠습니다.
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

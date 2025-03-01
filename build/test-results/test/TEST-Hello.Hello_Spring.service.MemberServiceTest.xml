@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Hello.Hello_Spring.service.MemberServiceTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2025-02-28T11:06:57.019Z" hostname="majonghoui-MacBookPro.local" time="0.015">
+  <properties/>
+  <testcase name="testFindOne()" classname="Hello.Hello_Spring.service.MemberServiceTest" time="0.002"/>
+  <testcase name="testJoin()" classname="Hello.Hello_Spring.service.MemberServiceTest" time="0.005"/>
+  <testcase name="중복_회원_예외()" classname="Hello.Hello_Spring.service.MemberServiceTest" time="0.004"/>
+  <testcase name="testFindMembers()" classname="Hello.Hello_Spring.service.MemberServiceTest" time="0.001"/>
+  <system-out><![CDATA[같은 회원으로 판명되었습니다.
+중복_회원_예외 메서드 실행결과:예외가 발생했습니다.
+테스트 실행됨!!!
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
