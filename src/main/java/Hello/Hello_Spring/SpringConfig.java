@@ -1,12 +1,8 @@
 package Hello.Hello_Spring;
 
-import javax.sql.DataSource;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import Hello.Hello_Spring.repository.JdbcTemplateMemberRepository;
 import Hello.Hello_Spring.repository.JpaMemberRepository;
 import Hello.Hello_Spring.repository.MemberRepository;
 import Hello.Hello_Spring.service.MemberService;
@@ -27,7 +23,7 @@ public class SpringConfig {
 
 
     //아래의 것은 JpaMemberRepository를 사용하지 않을 때 나머지 것에 대한 코드
-    // private DataSource datasource;
+    // private DataSource datasource;  //jdbc를 사용할 때 사용
 
     // @Autowired
     // public SpringConfig(DataSource datasource){

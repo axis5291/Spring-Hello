@@ -4,7 +4,7 @@ https://start.spring.io/에서 최초 세팅을 할 때 자바버전을 선택�
 -build.gradle
  java {
 	 sourceCompatibility = JavaVersion.VERSION_18
-     targetCompatibility = JavaVersion.VERSION_18
+   targetCompatibility = JavaVersion.VERSION_18
 	
  } 를 추가
 
