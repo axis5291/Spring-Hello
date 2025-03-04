@@ -27,13 +27,13 @@ public class MemberService {
 // MemberService를 생성할 때 매개변수로 MemoryyMemberRepository 대신 JpaMemberRepository로 변경하면 MemberService의 코드를 변경하지 않아도 된다.
 //이렇게 하면 손쉽게 레포지토리를 타입별로 바꿀수 있다.  MemberServiceTest에서 @beforeEach()부분 볼것..
 
-    public Long join(Member member){//회원가입 메서드
-        validateDuplicateMember(member);  //중복회원 검증
-        memberRepository.save(member);    //map에 저장
+    public Long join(Member member){//회원가입 메서드->회원중복 검증후 레포지토리에 저장하는 메서드
+        validateDuplicateMember(member);  //중복회원 검증,  인스턴스 메서드라서 바로 호출가능(this.validateDuplicateMember(member)에서 this가 생략)
+        memberRepository.save(member);    //레포지토리로 member 객체를 저장
         return member.getId();
     }
 
-    private void validateDuplicateMember(Member member) {  // //중복회원 검증
+    private void validateDuplicateMember(Member member) {  //중복회원 검증
         Optional<Member> result=memberRepository.findByName(member.getName());
         result.ifPresent(m->{  
             throw new IllegalStateException("이미 존재하는 회원입니다.");

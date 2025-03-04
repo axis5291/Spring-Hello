@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Hello.Hello_Spring.service.MemberServiceIntegrationTest" tests="2" skipped="0" failures="2" errors="0" timestamp="2025-03-04T16:51:37" hostname="majonghoui-MacBookPro.local" time="0.398">
+  <properties/>
+  <testcase name="testJoin()" classname="Hello.Hello_Spring.service.MemberServiceIntegrationTest" time="0.389">
+    <failure message="java.lang.IllegalStateException: 이미 존재하는 회원입니다." type="java.lang.IllegalStateException">java.lang.IllegalStateException: 이미 존재하는 회원입니다.
+	at Hello.Hello_Spring.service.MemberService.lambda$validateDuplicateMember$0(MemberService.java:39)
+	at java.base/java.util.Optional.ifPresent(Optional.java:178)
+	at Hello.Hello_Spring.service.MemberService.validateDuplicateMember(MemberService.java:38)
+	at Hello.Hello_Spring.service.MemberService.join(MemberService.java:31)
+	at Hello.Hello_Spring.service.MemberServiceIntegrationTest.testJoin(MemberServiceIntegrationTest.java:28)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+</failure>
+  </testcase>
+  <testcase name="중복_회원_예외()" classname="Hello.Hello_Spring.service.MemberServiceIntegrationTest" time="0.008">
+    <failure message="java.lang.IllegalStateException: 이미 존재하는 회원입니다." type="java.lang.IllegalStateException">java.lang.IllegalStateException: 이미 존재하는 회원입니다.
+	at Hello.Hello_Spring.service.MemberService.lambda$validateDuplicateMember$0(MemberService.java:39)
+	at java.base/java.util.Optional.ifPresent(Optional.java:178)
+	at Hello.Hello_Spring.service.MemberService.validateDuplicateMember(MemberService.java:38)
+	at Hello.Hello_Spring.service.MemberService.join(MemberService.java:31)
+	at Hello.Hello_Spring.service.MemberServiceIntegrationTest.중복_회원_예외(MemberServiceIntegrationTest.java:48)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+</failure>
+  </testcase>
+  <system-out><![CDATA[2025-03-05T01:51:37.963+09:00  INFO 6078 --- [Hello-Spring] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [Hello.Hello_Spring.service.MemberServiceIntegrationTest]: MemberServiceIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-03-05T01:51:37.972+09:00  INFO 6078 --- [Hello-Spring] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration Hello.Hello_Spring.HelloSpringApplication for test class Hello.Hello_Spring.service.MemberServiceIntegrationTest
+Hibernate: select m1_0.id,m1_0.name from member m1_0 where m1_0.name=?
+Hibernate: select m1_0.id,m1_0.name from member m1_0 where m1_0.name=?
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

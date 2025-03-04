@@ -5,7 +5,7 @@
 컨트롤러와 서비스 생성자 정의에서 @Autowired를 묶어준다.
 
 *스프링이 객체를 생성하고 주입하는 객체생성순서
-1️⃣ MemoryMemberRepository (@Repository) 생성됨
+1️⃣ MemoryMemberRepository (@Repository) 생성됨  단 여기서는 SpringConfig클래스에서 @Bean으로 등록하여 필요할 때마다 레포지토리를 바꿔서 사용하는 방식이다.(유연하게)
 2️⃣ MemberService (@Service) 생성됨 → MemoryMemberRepository가 주입됨
 3️⃣ MemberController (@Controller) 생성됨 → MemberService가 주입됨
 
@@ -18,6 +18,7 @@
 
 2.작성자가 직접 빈으로 등록하는 방법:SpringConfig클래스를 보자
   여기 예제에서는 컨트롤러를 제외한 메소드를 통해서 서비스와 레포지토리를 빈으로 등록하여 객체들을 연결 사용하는 방법이다.
+  @Bean을 사용할 때는 @Configuration이 붙은 클래스 내부에서만 사용***
 
 
 -http://localhost:8080/ 입력  

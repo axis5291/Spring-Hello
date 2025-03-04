@@ -31,8 +31,8 @@ public class JdbcTemplateMemberRepository implements MemberRepository {
 
     @Override
     public Member save(Member member) {
-        SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
-        jdbcInsert.withTableName("member").usingGeneratedKeyColumns("id");
+        SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate); 
+        jdbcInsert.withTableName("member").usingGeneratedKeyColumns("id");//멤버테이블에 id값을 자동으로 생성해주는 코드
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("name", member.getName());
         Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
