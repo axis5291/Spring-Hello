@@ -14,7 +14,16 @@ import Hello.Hello_Spring.domain.Member;
 @Repository
 @Primary   //같은 타입의 빈이 여러개 있을 때 @Primary가 붙은 빈을 우선적으로 주입한다.(현제 MemoryMemberRepository와 Jpa레포지토리가 같은 타입이므로)
 public interface  SpringDataJpaMemberRepository extends JpaRepository<Member, Long>, MemberRepository {
-
+//JpaRepository의 첫 번째 제네릭 인자는 엔티티 클래스 (@Entity) 여야 한다. 두 번째 제네릭 인자는 엔티티의 ID 타입과 동일해야 한다.
     @Override
     Optional<Member> findByName(String name);
 }
+
+
+//MemberRepository 인터페이스에 있는 메서드들을 보고 구현해준다.
+//다른방식 참조
+//#1
+// public interface JpaMemberRepository extends JpaRepository<Member, Long> {
+//     Optional<Member> findByName(String name);
+// }
+

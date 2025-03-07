@@ -19,7 +19,7 @@ public class SpringConfig {
     public SpringConfig(MemberRepository memberRepository){
         this.memberRepository=memberRepository;
     }
-
+    //현재 SpringDataJpaMemberRepository를 사용하고 있기 때문에 JpaMemberRepository를 사용하지 않는다.
     //#1.JpaMemberRepository를 사용할 때 나머지 것에 대한 코드
     // private EntityManager em;
 
