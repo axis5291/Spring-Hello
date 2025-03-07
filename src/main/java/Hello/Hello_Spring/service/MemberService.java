@@ -33,6 +33,11 @@ public class MemberService {
         return member.getId();
     }
 
+
+     public List<Member> findMembers(){
+        return memberRepository.findAll();
+    }
+
     private void validateDuplicateMember(Member member) {  //중복회원 검증
         Optional<Member> result=memberRepository.findByName(member.getName());
         result.ifPresent(m->{  
@@ -42,14 +47,39 @@ public class MemberService {
         // 만약 이미 존재하면 ifPresent()가 실행되어 예외가 발생함.
     }
 
-    public List<Member> findMembers(){
-        return memberRepository.findAll();
-    }
+   
 
     public Optional<Member> findOne(Long memberId){
         return memberRepository.findById(memberId);
     }
 
-}
+    
 
+  //아래 join()와 findMembers() 메서드는 실행에 걸리는 시간을 측정하고자 작성 -> AOP로 대체
+  
+    // public Long join(Member member) { 
+    //     long start = System.currentTimeMillis();
+    //     try {
+    //         validateDuplicateMember(member); //중복 회원 검증 memberRepository.save(member);
+    //         return member.getId();
+    //     } finally {
+    //         long finish = System.currentTimeMillis();
+    //         long timeMs = finish - start;
+    //         System.out.println("join()의 시간측정: " + timeMs + "ms");
+    //     } 
+    // } 
+
+    // public List<Member> findMembers() {  
+    //      long start = System.currentTimeMillis();
+    //      try {
+    //          return memberRepository.findAll();
+    //      } finally {
+    //          long finish = System.currentTimeMillis();
+    //          long timeMs = finish - start;
+    //          System.out.println("시간측정 findMembers()의 시간측정: " + timeMs + "ms");
+    //     } 
+    // }
+ 
+
+}
 

@@ -7,6 +7,12 @@ import Hello.Hello_Spring.domain.Member;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
+/* "영속성 컨텍스트는 JPA가 엔티티를 관리하는 1차 캐시 같은 메모리 공간이다."
+   "JPA는 DB와 직접 연결되지 않고, 영속성 컨텍스트를 통해 객체를 관리한 후 트랜잭션이 끝날 때 한꺼번에 처리한다."
+   EntityManager = 영속성 컨텍스트를 다루는 핵심 객체
+   EntityManager를 통해 엔티티를 저장, 조회, 수정하면서 영속성 컨텍스트를 활용, EntityManager의 기본적인 CRUD 메서드를 알아야 데이터를 다룰 수 있다.
+ */
+
 @Transactional //jpa를 사용하려면 항상 트랜잭션을 걸어줘야한다.
 public class JpaMemberRepository implements MemberRepository{
 
