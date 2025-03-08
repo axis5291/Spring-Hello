@@ -1,58 +1,72 @@
-MemberRepository로 인터페이스를 기반으로  DB연결을 하여 데이터를 사용하는 3가지 방법이 있다.
-3개중에 하나를 선택해서 쓰고 싶다면, SpringConfig클래스에서 memberRepository()에서 사용하고자 하는 객체를 빈으로 등록하면 된다.
+// MemberRepository 인터페이스를 구현한 5가지 저장소 중 하나를 선택하여 사용할 수 있다.
+// 1. MemoryMemberRepository (메모리 기반, 테스트용)
+// 2. JdbcMemberRepository (JDBC API 사용)
+// 3. JdbcTemplateMemberRepository (Spring JdbcTemplate 사용)
+// 4. JpaMemberRepository (JPA 사용)
+// 5. SpringDataJpaMemberRepository (Spring Data JPA 사용)
+//
+// SpringConfig 클래스의 memberRepository() 메서드에서 원하는 구현체를 @Bean으로 등록하면 해당 구현체가 사용된다.
+// MemberService는 여기에서 선택된 Repository를 주입받아 사용한다.
 
---------------------------------------------------------------------
-***3가지로 구현한 레포지토리가 있는데
- 3가지 레포지토리중에 하나를 SpringConfig클래스 memberRepository()에서 골라 선택하고
-여기에서 정한것을 MemberService클래스에서 선택한 레포지토리를 가져다 쓴것이 핵심
----------------------------------------------------------------------
 
 1.MemoryMemberRepository: Map을 이용해 데이터를 저장하는 방식
 ✔️특징:데이터를 HashMap에 저장하여 DB가 필요 없음, 가장 간단한 형태로, 테스트용으로 많이 사용됨.
-✅ 장점:속도가 빠름 (메모리에 저장되므로 DB I/O가 없음). 설정이 필요 없음 (DataSource, JDBC 설정 불필요). 테스트 용이 (단위 테스트 시 DB 의존성 없음).
-❌ 단점:애플리케이션 종료 시 데이터가 모두 사라짐. 다중 서버 환경에서 동기화가 불가능함. 실무에서 사용할 수 없음 (일시적인 테스트용).
+✅ 장점 
+   속도가 빠름 (메모리에 저장되므로 DB I/O가 없음). 
+   설정이 필요 없음 (DataSource, JDBC 설정 불필요). 
+   테스트 용이 (단위 테스트 시 DB 의존성 없음).
+❌ 단점
+   애플리케이션 종료 시 데이터가 모두 사라짐. 
+   다중 서버 환경에서 동기화가 불가능함. 
+   실무에서 사용할 수 없음 (일시적인 테스트용).
 
 2.JdbcMemberRepository:
- ✔️ 특징 :순수 JDBC API를 사용하여 SQL을 직접 작성. Connection, PreparedStatement, ResultSet을 사용하여 DB와 직접 연결.
-✅ 장점:SQL을 직접 제어할 수 있어 세밀한 조정 가능. Spring 없이도 일반 Java 환경에서 사용 가능.
-❌ 단점:코드가 너무 길고 반복적임 (try-catch, connection, statement 등).예외 처리, 리소스 정리 등의 부가적인 코드가 많음.유지보수 어려움 (SQL 수정 시 여러 부분을 수정해야 할 수 있음).
+✔️ 특징 :순수 JDBC API를 사용하여 SQL을 직접 작성. Connection, PreparedStatement, ResultSet을 사용하여 DB와 직접 연결.
+✅ 장점
+   SQL을 직접 제어할 수 있어 세밀한 조정 가능. 
+   Spring 없이도 일반 Java 환경에서 사용 가능.
+❌ 단점
+   코드가 너무 길고 반복적임 (try-catch, connection, statement 등).
+   예외 처리, 리소스 정리 등의 부가적인 코드가 많음.
+   유지보수 어려움 (SQL 수정 시 여러 부분을 수정해야 할 수 있음).
 
 3.JdbcTemplateMemberRepository(JDBC + Spring JdbcTemplate)
-   ✔️ 특징
-
-JdbcTemplate을 사용하여 JDBC API를 단순화.
-SQL은 직접 작성하지만, 연결 및 예외 처리를 자동화.
+✔️ 특징:JdbcTemplate을 사용하여 JDBC API를 단순화. SQL은 직접 작성하지만, 연결 및 예외 처리를 자동화.
 ✅ 장점
-
-코드가 간결해짐 (Connection, Statement, ResultSet 등의 반복 코드 제거).
-예외 처리를 자동으로 해줘서 try-catch 불필요.
-JDBC보다 유지보수 쉬움.
+   코드가 간결해짐 (Connection, Statement, ResultSet 등의 반복 코드 제거). 
+   예외 처리를 자동으로 해줘서 try-catch 불필요. JDBC보다 유지보수 쉬움.
 ❌ 단점
-
-SQL을 직접 작성해야 하므로 SQL 의존성이 있음.
-
+   SQL을 직접 작성해야 하므로 SQL 의존성이 있음.
 
 4.JpaMemberRepository
-E✔️ 특징
-
-SQL을 직접 사용하지 않고, JPA가 SQL을 자동 생성.
-EntityManager를 사용하여 객체를 다룸.
-@Transactional이 필요함 (모든 변경 작업은 트랜잭션 안에서 수행).
+✔️ 특징:SQL을 직접 사용하지 않고, JPA가 SQL을 자동 생성. EntityManager를 사용하여 객체를 다룸. @Transactional이 필요함 (모든 변경 작업은 트랜잭션 안에서 수행).
 ✅ 장점
-
-SQL을 직접 작성할 필요 없음 (객체지향 쿼리 JPQL 사용).
-데이터 변경이 간편 (INSERT, UPDATE, DELETE가 자동 처리됨).
-객체 중심 개발이 가능하여 유지보수가 쉬움.
-persist()로 저장하면 트랜잭션이 끝날 때 자동으로 반영됨.
+    SQL을 직접 작성할 필요 없음 (객체지향 쿼리 JPQL 사용). 
+    데이터 변경이 간편 (INSERT, UPDATE, DELETE가 자동 처리됨). 
+    객체 중심 개발이 가능하여 유지보수가 쉬움.
+    persist()로 저장하면 트랜잭션이 끝날 때 자동으로 반영됨.
 ❌ 단점
+   JPA 학습 필요 (JDBC, JdbcTemplate보다 상대적으로 어려움). 
+   동작 방식이 익숙하지 않으면 성능 튜닝이 어려울 수 있음. 
+   기본적으로 트랜잭션이 필요함 (@Transactional 필수).
 
-JPA 학습 필요 (JDBC, JdbcTemplate보다 상대적으로 어려움).
-동작 방식이 익숙하지 않으면 성능 튜닝이 어려울 수 있음.
-기본적으로 트랜잭션이 필요함 (@Transactional 필수).
+ 5.SpringDataJpaMemberRepository(Spring Data JPA 사용)->가장추천
+ 🔹 특징:JpaRepository 인터페이스를 상속받아 자동으로 JPA 기반의 구현체를 생성. 기본적인 CRUD 메서드(save(), findById(), findAll() 등)를 자동 제공. 메서드 이름만으로 쿼리를 자동 생성 (findByName(String name) → SELECT * FROM member WHERE name = ?).
+✅ 장점
+    인터페이스만 작성하면 구현체가 자동 생성됨 (코드 작성량 최소화).
+    SQL을 직접 작성하지 않아도 됨.
+    유지보수 및 개발 속도가 매우 빠름.
+❌ 단점
+   복잡한 쿼리는 직접 @Query를 사용하여 작성해야 함.
+   자동 생성된 쿼리를 정확히 이해하고 사용해야 함.
+   JPA를 기반으로 하므로 JPA 설정이 필요함.
+
 
 📌 정리 (비교표)
-        구현체	                            특징	             장점	                                                     단점
-MemoryMemberRepository	        메모리에 데이터 저장	        속도가 빠르고 설정이 필요 없음	앱 종료 시 데이터 사라짐,               실무 사용 불가
-JdbcMemberRepository	        순수 JDBC API 사용	         SQL 직접 제어 가능, 일반 Java 환경에서도 사용 가능	코드 길고 반복적,     유지보수 어려움
-JdbcTemplateMemberRepository	Spring의 JdbcTemplate 사용	코드 간결, 예외 처리 자동	SQL 직접 작성 필요,                      SQL 의존적
-JpaMemberRepository	            JPA 사용하여 SQL 자동 생성	   SQL 없이 객체 중심 개발, 유지보수 쉬움	                          JPA 학습 필요, 트랜잭션 필수
+구현 방식	                             장점	                             단점	                     추천 사용 상황
+MemoryMemberRepository	        간단하고 빠름, DB 설정이 필요 없음	     데이터 휘발성, 동시성 문제	            단위 테스트용
+JdbcMemberRepository	        모든 DB에서 사용 가능, SQL 직접 제어 가능    코드가 길고 복잡함, 유지보수 어려움    SQL 최적화가 필요한 경우
+JdbcTemplateMemberRepository	반복 코드 줄어듦, SQL 직접 사용 가능	     SQL 직접 작성 필요	                   SQL을 직접 다루면서도 간결한 코드 유지
+JpaMemberRepository	        객체 지향적인 데이터 관리, 유지보수 편리     학습 필요, JPQL 필요	            JPA를 적극 활용하는 프로젝트
+SpringDataJpaMemberRepository   구현 없이 기본적인 CRUD 제공, 코드 최소화    복잡한 쿼리 작성 어려움	            Spring Boot 기반의 JPA 프로젝트
+
