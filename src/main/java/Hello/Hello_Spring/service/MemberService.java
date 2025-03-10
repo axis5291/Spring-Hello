@@ -31,36 +31,30 @@ public class MemberService {
 //
 // 즉, SpringConfig에서 `return new JpaMemberRepository(em);`로 변경하면 MemberService의 코드는 수정하지 않고도 JPA 기반의 레포지토리를 사용할 수 있다.
 
-
-
     public Long join(Member member){     //회원가입 메서드->회원중복 검증후 레포지토리에 저장하는 메서드
         validateDuplicateMember(member); //중복회원 검증, *이미 생성된 빈(객체)이므로 바로 호출가능(this.validateDuplicateMember(member)에서 this가 생략)
         memberRepository.save(member);   //레포지토리에 저장
         return member.getId();           //ID를 반환하면 회원 가입 이후 해당 회원을 쉽게 추적하고, 후속 작업을 할 수 있도록 설계된 것! 😊
     }
 
-
-     public List<Member> findMembers(){
+    public List<Member> findMembers(){
         return memberRepository.findAll();
     }
 
-    private void validateDuplicateMember(Member member) {  //중복회원 검증
-        Optional<Member> result=memberRepository.findByName(member.getName());
-        result.ifPresent(m->{                                           //ifPresent()는 Optional 내부에 값이 있을 경우 실행
+    public Optional<Member> findOne(Long memberId){
+        return memberRepository.findById(memberId);
+    }
+
+    private void validateDuplicateMember(Member member) {  //맴버의 이름으로 중복회원 검증, 같은 이름이 있으면 예외 발생
+        Optional<Member> result=memberRepository.findByName(member.getName());  //MemberControlle create()에서 설정한 멤버의 이름을 꺼내서 중복검증
+        result.ifPresent(m->{    //ifPresent()는 Optional 내부에 값이 있을 경우 실행
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         });
         // findByName() 메서드는 Optional<Member>를 반환하는데, 만약 해당 이름을 가진 회원이 존재하지 않으면 Optional.empty()가 반환됨.
         // 만약 이미 존재하면 ifPresent()가 실행되어 예외가 발생함.
     }
 
-   
-
-    public Optional<Member> findOne(Long memberId){
-        return memberRepository.findById(memberId);
-    }
-
     
-
   //아래 join()와 findMembers() 메서드는 실행에 걸리는 시간을 측정하고자 작성 -> AOP로 대체
 
     // public Long join(Member member) { 

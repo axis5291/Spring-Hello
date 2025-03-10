@@ -7,8 +7,9 @@ import org.springframework.context.annotation.Configuration;
 import Hello.Hello_Spring.repository.MemberRepository;
 import Hello.Hello_Spring.service.MemberService;
 
-// Spring이 자동으로 JdbcTemplateMemberRepository를 인식하도록 Spring Configuration에 등록해야 함
-// 보통 @Configuration 클래스를 만들어 등록, ***@Bean과 @Configuration는 꼭 같이 써야 수동으로 등록이 가능하다.
+// SpringDataJpaMemberRepository를 사용하면 자동으로 빈 등록되므로 현재 SpringConfig 클래스가 필요하지 않습니다.
+// 다른 레포지토리(예: JdbcTemplateMemberRepository나 JpaMemberRepository)를 사용하고자 할 경우, 
+//SpringConfig에서 수동으로 빈을 등록해야 할 때 @Bean을 사용하여 빈을 등록하는 방식으로 SpringConfig가 필요합니다.
 
 @Configuration  //spring에서 설정 클래스임을 나타내는 어노테이션, Spring 컨테이너가 설정을 읽고 @Bean을 사용하여 객체를 직접 생성하고 관리 가능
 public class SpringConfig {
@@ -19,35 +20,56 @@ public class SpringConfig {
     public SpringConfig(MemberRepository memberRepository){
         this.memberRepository=memberRepository;
     }
-    //현재 SpringDataJpaMemberRepository를 사용하고 있기 때문에 JpaMemberRepository를 사용하지 않는다.
-    //#1.JpaMemberRepository를 사용할 때 나머지 것에 대한 코드
-    // private EntityManager em;
-
-    // public SpringConfig(EntityManager em){  //JpaRepository를 사용하기 위해 EntityManager를 주입받아야 한다.
-    //     this.em=em;
-    // }   
-
-
-    //#2.JpaMemberRepository를 사용하지 않을 때 나머지 것에 대한 코드
-    // private DataSource datasource;  //jdbc를 사용할 때 사용
-
-    // @Autowired
-    // public SpringConfig(DataSource datasource){
-    //     this.datasource=datasource;
-    // }
 
     @Bean
     public MemberService memberService(){
         return new MemberService(memberRepository); 
     }
 
-    // @Bean  
-    // public MemberRepository memberRepository(){
-    //     return new JpaMemberRepository(em);  
-       // return new JdbcTemplateMemberRepository(datasource);    //SpringConfig에 Bean 등록을 해야 Spring에서 JdbcTemplateMemberRepository를 사용할 수 있음
-       // return new JdbcMemberRepository(datasource);   //이렇게 빈으로 등록하면 레포지토리 변경이 쉽다.다른 코드를 변경하지 않아도 된다.
-       //return new MemoryMemberRepository();
-    // }
+// 현재 SpringDataJpaMemberRepository를 사용하고 있기 때문에 JpaMemberRepository를 사용하지 않습니다.
+
+    /* 1. JpaMemberRepository를 사용할 때 사용
+    - JpaRepository를 사용하기 위해 EntityManager를 주입받아야 합니다.
+    - SpringConfig에서 EntityManager를 주입받을 때 이 코드 블록을 활성화합니다.
+
+    private EntityManager em;
+
+    public SpringConfig(EntityManager em){  
+        this.em = em;
+    }   
+    */
+
+    /* 2. JdbcTemplateMemberRepository, JdbcMemberRepository를 사용할 때 사용
+    - JdbcTemplate을 사용할 때 DataSource를 주입받아야 합니다.
+    - SpringConfig에서 DataSource를 주입받을 때 이 코드 블록을 활성화합니다.
+
+    private DataSource datasource;  
+
+    @Autowired
+    public SpringConfig(DataSource datasource){
+        this.datasource = datasource;
+    }
+    */
+
+    /* 3. 원하는 레포지토리를 선택하여 사용할 때 빈으로 수동 등록하여 교체하는 방법
+    - 이 메서드에서 주석을 해제하여 원하는 레포지토리를 선택합니다.
+    - 각 레포지토리를 선택할 때 주석을 활성화하여 빈을 등록합니다.
+
+    @Bean  
+    public MemberRepository memberRepository(){
+        // 1. JpaMemberRepository를 사용할 때 이 주석을 해제하여 사용
+        return new JpaMemberRepository(em);                   
+
+        // 2. JdbcTemplateMemberRepository를 사용할 때 이 주석을 해제하여 사용
+        return new JdbcTemplateMemberRepository(datasource);    
+
+        // 3. JdbcMemberRepository를 사용할 때 이 주석을 해제하여 사용
+        return new JdbcMemberRepository(datasource);            
+
+        // 4. MemoryMemberRepository를 사용할 때 이 주석을 해제하여 사용
+        return new MemoryMemberRepository();                    
+    }
+    */
 
 
 }
